@@ -1,5 +1,10 @@
 //connect to express
 const express=require('express')
+var bodyParser = require('body-parser')
+// create application/json parser
+var jsonParser = bodyParser.json()
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 //import module form db.js
 const connectDB=require('./config/db');
 const app=express();
@@ -7,6 +12,9 @@ const app=express();
 connectDB();
 //set port to 5000
 const PORT=process.env.PORT || 5000;
+
+//use body parser middleware
+app.use(express.json({extended:false}));
 //Get request
 app.get('/',(req,res)=>res.send('API running'))
 //Define routes for users,auth,profile,posts respectively
